@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  mysqldb:
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    command: --init-file /data/application/init.sql
+    volumes:
+      - ./init.sql:/data/application/init.sql
+    environment:
+      - MYSQL_ROOT_USER=root
+      - MYSQL_ROOT_PASSWORD=secret123
+      - MYSQL_DATABASE=lcm_poc_v1
