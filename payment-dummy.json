@@ -1,0 +1,178 @@
+{
+    "source": "mockoon:1.15.0",
+    "data": [
+        {
+            "type": "environment",
+            "item": {
+                "uuid": "",
+                "lastMigration": 17,
+                "name": "Payments",
+                "endpointPrefix": "payments",
+                "latency": 0,
+                "port": 3000,
+                "hostname": "0.0.0.0",
+                "routes": [
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "post",
+                        "endpoint": "ipay",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"id\": \"{{ faker 'finance.ethereumAddress' }}\",\n  \"timestamp\": \"{{ faker 'time.recent' }}\",\n  \"transaction_details\": {\n    \"transaction_id\": \"{{ body 'transaction_id' }}\",\n    \"transaction_code\": \"{{ faker 'finance.bitcoinAddress' }}\", \n    \"transaction_type\": \"{{ faker 'finance.transactionType' }}\",\n    \"description\": \"{{ faker 'finance.transactionDescription' }}\",\n  },\n  \"payment_details\": {\n    \"provider\": \"iPay\",\n    \"payment_amount\": \"{{ body 'transaction_amount' }}\",\n    \"payment_currency\": \"{{ body 'currency_code' }}\",\n  },\n  \"customer_details\": {\n    \"customer_id\": \"{{ body 'customer_id' }}\",\n    \"customer_name\": {{# switch (body 'customer_id') }}{{# case \"1\" }}\"Yauri\"{{/ case }}{{# case \"2\" }}\"Haggerty\"{{/ case }}{{# case \"3\" }}\"Rodtang\"{{/ case }}{{/ switch }}    \n  },\n  \"status\": {{# switch (body 'customer_id') }}{{# case \"1\" }}\"success\"{{/ case }}{{# case \"2\" }}\"success\"{{/ case }}{{# case \"3\" }}\"success\"{{/ case}}{{# default }}\"failed\"{{/ default }}{{/ switch }}\n}",
+                                "latency": 0,
+                                "statusCode": 201,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false,
+                                "fallbackTo404": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false,
+                        "sequentialResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "post",
+                        "endpoint": "lulupay",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"id\": \"{{ faker 'finance.bitcoinAddress' }}\",\n  \"transaction_id\": \"{{ body 'transaction_id' }}\",\n  \"transaction_code\": \"{{ faker 'finance.bitcoinAddress' }}\", \n  \"transaction_type\": \"{{ faker 'finance.transactionType' }}\",\n  \"payment_provider\": \"Lulupay\",\n  \"customer_id\": \"{{ body 'customer_id' }}\",\n  \"customer_name\": {{# switch (body 'customer_id') }}{{# case \"001\" }}\"Yauri\"{{/ case }}{{# case \"002\" }}\"Haggerty\"{{/ case }}{{# case \"003\" }}\"Rodtang\"{{/ case }}{{/ switch }}\n  \"payment_amount\": \"{{ body 'payment_amount' }}\",\n  \"currency_code\": \"{{ body 'curr' }}\",\n  \"description\": \"{{ faker 'finance.transactionDescription' }}\",\n  \"status\": {{# switch (body 'customer_id') }}{{# case \"001\" }}\"success\"{{/ case }}{{# case \"002\" }}\"success\"{{/ case }}{{# case \"003\" }}\"success\"{{/ case}}{{# default }}\"failed\"{{/ default }}{{/ switch }},\n  \"created_at\": \"{{ faker 'date.recent' }}\",    \n}",
+                                "latency": 0,
+                                "statusCode": 201,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false,
+                                "fallbackTo404": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false,
+                        "sequentialResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "get",
+                        "endpoint": "customers/:id",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"customer_id\": \"{{urlParam 'id'}}\",\n  \"customer_name\": {{# switch (urlParam 'id') }}{{# case \"001\" }}\"Yauri\"{{/ case }}{{# case \"002\" }}\"Haggerty\"{{/ case }}{{# case \"003\" }}\"Rodtang\"{{/ case }}{{/ switch }},\n  \"current_balance\": {{# switch (urlParam 'id') }}{{# case \"001\"}}25000000{{/ case }}{{# case \"002\" }}15000000{{/ case }}{{# case \"003\" }}0{{/ case }}{{/ switch }},\n  \"currency\": \"USD\",\n  \"active\": {{# switch (urlParam 'id') }}{{# case \"001\"}}true{{/ case }}{{# case \"002\" }}true{{/ case }}{{# case \"003\" }}false{{/ case }}{{/ switch }}\n}",
+                                "latency": 0,
+                                "statusCode": 200,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false,
+                                "fallbackTo404": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false,
+                        "sequentialResponse": false
+                    },
+                    {
+                        "uuid": "",
+                        "documentation": "",
+                        "method": "post",
+                        "endpoint": "invoices",
+                        "responses": [
+                            {
+                                "uuid": "",
+                                "body": "{\n  \"id\": \"{{ faker 'finance.bitcoinAddress' }}\",\n  \"transaction_id\": \"{{ body 'transaction_id' }}\",\n  \"transaction_code\": \"{{ faker 'finance.bitcoinAddress' }}\", \n  \"transaction_type\": \"{{ faker 'finance.transactionType' }}\",\n  \"payment_provider\": \"Lulupay\",\n  \"customer_id\": \"{{ body 'customer_id' }}\",\n  \"customer_name\": {{# switch (body 'customer_id') }}{{# case \"001\" }}\"Yauri\"{{/ case }}{{# case \"002\" }}\"Haggerty\"{{/ case }}{{# case \"003\" }}\"Rodtang\"{{/ case }}{{/ switch }}\n  \"payment_amount\": \"{{ body 'payment_amount' }}\",\n  \"currency_code\": \"{{ body 'curr' }}\",\n  \"description\": \"{{ faker 'finance.transactionDescription' }}\",\n  \"status\": {{# switch (body 'customer_id') }}{{# case \"001\" }}\"success\"{{/ case }}{{# case \"002\" }}\"success\"{{/ case }}{{# case \"003\" }}\"success\"{{/ case}}{{# default }}\"failed\"{{/ default }}{{/ switch }},\n  \"created_at\": \"{{ faker 'date.recent' }}\",    \n}",
+                                "latency": 0,
+                                "statusCode": 201,
+                                "label": "",
+                                "headers": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "filePath": "",
+                                "sendFileAsBody": false,
+                                "rules": [],
+                                "rulesOperator": "OR",
+                                "disableTemplating": false,
+                                "fallbackTo404": false
+                            }
+                        ],
+                        "enabled": true,
+                        "randomResponse": false,
+                        "sequentialResponse": false
+                    }
+                ],
+                "proxyMode": false,
+                "proxyHost": "",
+                "proxyRemovePrefix": false,
+                "https": false,
+                "cors": true,
+                "headers": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "proxyReqHeaders": [
+                    {
+                        "key": "",
+                        "value": ""
+                    }
+                ],
+                "proxyResHeaders": [
+                    {
+                        "key": "",
+                        "value": ""
+                    }
+                ]
+            }
+        }
+    ]
+}
