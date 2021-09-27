@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: "jdbc:mysql://localhost:3306/lcm_poc_v1"
+    username: "root"
+    password: "v3r44pr1"
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: mysql
+    database-platform: "org.hibernate.dialect.MySQL5Dialect"
+    generate-ddl: true
