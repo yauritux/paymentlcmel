@@ -1,4 +1,4 @@
-version: '2'
+version: "3.9"
 
 services:
   mysqldb:
@@ -12,3 +12,9 @@ services:
       - MYSQL_ROOT_USER=root
       - MYSQL_ROOT_PASSWORD=secret123
       - MYSQL_DATABASE=lcm_poc_v1
+  payment-dummy:
+    image: mockoon/cli:latest
+    ports:
+      - "3000:3000"
+    command: -d https://raw.githubusercontent.com/yauritux/paymentlcmel/master/payment-dummy.json -i 0 -p 3000
+
